@@ -990,6 +990,12 @@ module.exports = {
       colors: {
         'main': '#2FC72F',
         'foot': '#ADA8A8',
+        'card': '#CBCBCB',
+        'hover': '#81FB81',
+      },
+      fontFamily: {
+        body: ['Inika'],
+
       }
     }
   },
