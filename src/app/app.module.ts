@@ -11,6 +11,8 @@ import { RecentlyViewedCardComponent } from './recently-viewed-card/recently-vie
 import { WeeklyRecommendCardComponent } from './weekly-recommend-card/weekly-recommend-card.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { SearchComponent } from './search/search.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     WeeklyRecommendCardComponent,
     HomepageComponent,
     AboutUsComponent,
+    SearchComponent,
+    ItemComponent,
   ],
   imports: [
     BrowserModule,
