@@ -993,6 +993,8 @@ module.exports = {
         'card': '#CBCBCB',
         'hover': '#81FB81',
         'secondary': '#92FF92',
+        'button': '#3BE13B',
+        'textcard': '#D9D9D9',
       },
       fontFamily: {
         body: ['Inika'],
