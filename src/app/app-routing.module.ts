@@ -6,11 +6,17 @@ import { SearchComponent } from './search/search.component';
 import { ItemComponent } from './item/item.component';
 import { MyRecipesComponent } from './my-recipes/my-recipes.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
+  { path: "register", component: RegisterComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: "login", component: LoginComponent },
   { path: '', redirectTo: 'add-recipe', pathMatch: 'full' },
   { path: "add-recipe", component: AddRecipeComponent },
-  { path: '', redirectTo: 'item', pathMatch: 'full' },
+  { path: '', redirectTo: 'my-recipes', pathMatch: 'full' },
   { path: "my-recipes", component: MyRecipesComponent },
   { path: '', redirectTo: 'item', pathMatch: 'full' },
   { path: "item", component: ItemComponent },
