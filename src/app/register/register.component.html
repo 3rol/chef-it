@@ -4,29 +4,29 @@
             <h3 class="text-xl  text-center text-main dark:text-main font-bold">Register</h3>
             <div>
 
-                <input type="username" name="username" id="username"
-                    class="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-3xl  block w-full p-2.5 dark:bg-white  dark:text-white"
+                <input [(ngModel)]="register.username" type="username" name="username" id="username"
+                
                     placeholder="Username" required="">
             </div>
             <div>
 
-                <input type="email" name="email" id="email"
-                    class="bg-white border border-gray-300 text-gray-900 sm:text-sm rounded-3xl  block w-full p-2.5 dark:bg-white  dark:text-white"
+                <input [(ngModel)]="register.email" type="email" name="email" id="email" 
+                    
                     placeholder="Email" required="">
             </div>
             <div>
 
-                <input type="password" name="password" id="password" placeholder="Password"
-                    class="bg-white text-black sm:text-sm rounded-3xl  block w-full p-2.5 dark:bg-white   dark:text-black"
+                <input [(ngModel)]="register.password" type="password" name="password" id="password" placeholder="Password"
+                    
                     required="">
             </div>
             <div>
 
-                <input type="confirm" name="confirm" id="confirm" placeholder="Confirm Password"
-                    class="bg-white text-black sm:text-sm rounded-3xl  block w-full p-2.5 dark:bg-white   dark:text-black"
+                <input [(ngModel)]="register.password" type="confirm" name="confirm" id="password" placeholder="Confirm Password"
+                    
                     required="">
             </div>
-            <div class="flex justify-center"><button type="submit"
+            <div class="flex justify-center"><button (click)="registerUser()" 
                     class="w-30 text-black bg-main hover:bg-hover  font-body rounded-3xl text-sm px-5 py-2.5 text-center dark:bg-button dark:hover:bg-hover ">Login
                 </button></div>
 
@@ -39,3 +39,10 @@
     </div>
 
 </div>
+<script>
+    // Get the CSRF token from the hidden input field
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  
+    // Store the CSRF token in a JavaScript variable
+    window.csrfToken = csrfToken;
+  </script>

@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
+
   { path: '', redirectTo: 'register', pathMatch: 'full' },
   { path: "register", component: RegisterComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: "about-us", component: AboutUsComponent },
   { path: '', redirectTo: 'homepage', pathMatch: 'full' },
   { path: "homepage", component: HomepageComponent },
+
 ];
 
 @NgModule({

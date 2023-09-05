@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Recipe } from './../../models/recipe.model';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-top-recipes-card',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./top-recipes-card.component.css']
 })
 export class TopRecipesCardComponent {
+  @Input() recipe!:Recipe
 
 }

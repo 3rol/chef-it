@@ -4,8 +4,8 @@
         alt="viet-chicken">
     <div class="flex flex-col justify-between p-4 leading-normal ">
         <div class="grid grid-cols-8 space-x-1">
-            <h5 class="mb-2 text-xl font-body font-bold  tracking-tight  text-main col-span-5">Vietnamese
-                Chicken</h5>
+            <h5 class="mb-2 text-xl font-body font-bold  tracking-tight  text-main col-span-5">{{recipe.name}}
+               </h5>
             <a href="#"
                 class="inline-flex items-center px-3 py-2.5 mr-2 mb-2  font-body text-center text-black bg-button rounded-full hover:bg-hover focus:ring-4 focus:outline-none  dark:bg-button dark:hover:bg-hover w-13   mr-auto cols-span-1 ">
                 <svg xmlns="http://www.w3.org/2000/svg" height="16px"
@@ -29,8 +29,7 @@
                 </svg></a>
         </div>
 
-        <p class="mb-3 font-body text-gray-700 dark:text-black">This superdish is prepared full of flavours representing
-            the rich culture of Vietnam. The seasoning is very easy to make and you can do it easily from home.</p>
+        <p class="mb-3 font-body text-gray-700 dark:text-black">{{recipe.description}}</p>
         <div class="grid grid-cols-2 gap-10 p-5 ">
 
             <button type="button"

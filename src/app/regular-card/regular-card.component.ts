@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Recipe } from 'src/models/recipe.model';
 
 @Component({
   selector: 'app-regular-card',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./regular-card.component.css']
 })
 export class RegularCardComponent {
-
+  @Input() recipe!:Recipe
 }
