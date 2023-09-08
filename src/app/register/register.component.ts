@@ -31,11 +31,7 @@ export class RegisterComponent implements OnInit {
       };
   }
   registerUser(){
-    this.userService.registerUser(this.register).subscribe(
-      response => {
-        alert('User ' + this.register.username + ' has been created succesfuly!')
-      },
-      error => console.log('error', error)
-    );
-  }
-}
+    this.userService.registerUser(this.register).subscribe(result => {
+      this.userService.registerUser = result;
+    })
+}}

@@ -1,33 +1,21 @@
 <div class="max-w-2xl mx-auto p-20 flex justify-center" id="register">
     <div class="bg-card shadow-md border border-gray-200 rounded-3xl max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-card w-full ">
-        <form class="space-y-6" action="#">
+        <form class="space-y-6 text-center" action="#">
             <h3 class="text-xl  text-center text-main dark:text-main font-bold">Register</h3>
             <div>
-
                 <input [(ngModel)]="register.username" type="username" name="username" id="username"
-                
-                    placeholder="Username" required="">
+                    placeholder="Username" required="" class="w-52">
             </div>
             <div>
-
                 <input [(ngModel)]="register.email" type="email" name="email" id="email" 
-                    
-                    placeholder="Email" required="">
+                    placeholder="Email" required="" class="w-52">
             </div>
             <div>
-
-                <input [(ngModel)]="register.password" type="password" name="password" id="password" placeholder="Password"
-                    
-                    required="">
-            </div>
-            <div>
-
-                <input [(ngModel)]="register.password" type="confirm" name="confirm" id="password" placeholder="Confirm Password"
-                    
-                    required="">
+                <input [(ngModel)]="register.password" type="password" name="password" id="password" placeholder="Password"  
+                    required="password" class="w-52">
             </div>
             <div class="flex justify-center"><button (click)="registerUser()" 
-                    class="w-30 text-black bg-main hover:bg-hover  font-body rounded-3xl text-sm px-5 py-2.5 text-center dark:bg-button dark:hover:bg-hover ">Login
+                    class="w-30 text-black bg-main hover:bg-hover  font-body rounded-3xl text-sm px-5 py-2.5 text-center dark:bg-button dark:hover:bg-hover ">Register
                 </button></div>
 
             <div class="text-sm font-medium text-black dark:text-black flex justify-center">
@@ -39,10 +27,3 @@
     </div>
 
 </div>
-<script>
-    // Get the CSRF token from the hidden input field
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-  
-    // Store the CSRF token in a JavaScript variable
-    window.csrfToken = csrfToken;
-  </script>
