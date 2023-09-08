@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { RecipeService } from 'src/services/recipe.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,15 +8,17 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  searchValue= '';
+  
 
-  constructor(private http:HttpClient) {
+  constructor(private recipeService: RecipeService) {
 
   }
   obj:any;
   ngOnInit(): void{
-    this.obj = this.http.get("http://127.0.0.1:8000").subscribe(
-      data => this.obj = data
-    )
+    
+    
   }
-
+  
+  
 }

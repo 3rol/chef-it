@@ -2,10 +2,15 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
 
-interface UserData {
+interface RegisterData {
   username: string;
   password: string;
   email: string;
+}
+interface LoginData {
+  username: string;
+  password: string;
+  
 }
 
 @Injectable({
@@ -17,8 +22,13 @@ export class UserService {
 
   
 
-  registerUser(userData: UserData): Observable<any>{
-    return this.http.post('http://127.0.0.1:8000/api/users/', userData)
+  registerUser(registerData: RegisterData): Observable<any>{
+    return this.http.post('http://127.0.0.1:8000/api/register/', registerData)
+    
+  }
+
+  loginUser(loginData: LoginData): Observable<any>{
+    return this.http.post('http://127.0.0.1:8000/api/login/', loginData)
     
   }
 }
