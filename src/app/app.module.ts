@@ -18,8 +18,9 @@ import { MyRecipesComponent } from './my-recipes/my-recipes.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { HttpClientModule} from  '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from  '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 @NgModule({
@@ -48,7 +49,13 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
 
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
