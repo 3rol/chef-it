@@ -1,20 +1,5 @@
-<h1 class="text-center text-4xl font-body">Top recipes of <p class="inline text-main">the day</p>
+<h1 class="text-center text-4xl font-body mt-8">Top recipes of <p class="inline text-main">the day</p>
 </h1>
-<div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-10">
-    <app-regular-card *ngFor="let recipe of recipes" [recipe]="recipe" class="flex justify-center "></app-regular-card>
-    
-</div>
-
-
-<div class="m-8 grid grid-cols-1 lg:grid-cols-2 gap-10">
-    <div class="flex justify-center">
-        <h1 class="text-center text-4xl font-body">Recipe of <p class="inline text-main">the Week</p>
-        </h1>
-    </div>
-    <div class="flex justify-center">
-        <h1 class="text-center text-4xl font-body">We <p class="inline text-main">Recommend</p>
-        </h1>
-    </div>
-    <app-weekly-recommend-card class="flex justify-center"></app-weekly-recommend-card>
-    <app-weekly-recommend-card class="flex justify-center"></app-weekly-recommend-card>
+<div class="mt-8 ms-5 me-5 md:ms-20 md:me-20 grid grid-cols-1 lg:grid-cols-3">
+    <app-regular-card *ngFor="let recipes of recipes" [recipes]="recipes" class="flex justify-center "></app-regular-card>
 </div>

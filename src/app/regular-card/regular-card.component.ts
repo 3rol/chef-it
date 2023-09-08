@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from 'src/models/recipe.model';
+import { RecipeService } from 'src/services/recipe.service';
 
 @Component({
   selector: 'app-regular-card',
@@ -7,5 +8,14 @@ import { Recipe } from 'src/models/recipe.model';
   styleUrls: ['./regular-card.component.css']
 })
 export class RegularCardComponent {
-  @Input() recipe!:Recipe
+  @Input() recipes!:Recipe
+
+  constructor(private recipeService : RecipeService){
+    
+  }
+
+  getRecipeById(recipeId: number){
+    this.recipeService.getRecipeById(recipeId);
+  }
+
 }
