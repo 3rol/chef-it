@@ -1,88 +1,79 @@
-<h1 class="p-5 text-left text-4xl font-body pl-11">Recipe <p class="inline text-main">info</p>
-</h1>
-<div class="ml-5 grid grid-cols-2 gap-5">
-    <div class="col-span-12"></div>
-    <div class="flex justify-left">
-        <h1 class="text-center text-4xl font-body pl-6">Recipe <p class="inline text-main">name</p>
-        </h1>
-    </div>
-    <div class="flex justify-left">
-        <h1 class="text-center text-4xl font-body">Upload <p class="inline text-main">image</p>
-        </h1>
-
-    </div>
-
-
-</div>
-<div class=" grid grid-cols-5 gap-5">
-
-    <form class="col-span-2 flex justify-left p-5">
-
-        <div class="flex items-center px-2 py-2 rounded-3xl h-12 justify-left">
-            <textarea id="chat" rows="1"
-                class=" block mx-4 mr-2 p-2.5 w-96 text-sm text-gray-900 bg-white rounded-3xl border border-gray-300 dark:bg-card dark:bg-card dark:placeholder-gray-400 dark:text-white"
-                placeholder="Enter here..."></textarea>
-
+<div class="ml-14 mr-20">
+    <div class="ml-5 grid grid-cols-2 gap-5">
+        <div class="col-span-12"></div>
+        <div class="flex justify-left">
+          <h1 class="text-center text-4xl font-body pl-6">Recipe <p class="inline text-main">name</p></h1>
         </div>
-    </form>
-
-    <div class=" mr-12 p-5 flex justify-center ">
-        <button class="bg-button hover:bg-hover font-body dark:bg-button text-black text-sm py-1 px-3 rounded-full ">
-            Select Photo
+        <div class="flex justify-left">
+          <h1 class="text-center text-4xl font-body">Upload <p class="inline text-main">image</p></h1>
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-5 gap-5">
+        <form #recipeForm="ngForm" (ngSubmit)="addRecipe()" class="col-span-2 flex justify-left p-5">
+          <div class="flex items-center px-2 py-2 rounded-3xl h-12 justify-left">
+            <input type="text" name="name" [(ngModel)]="selectedRecipe.name" placeholder="Recipe Name" required
+              class="block mx-4 mr-2 p-2.5 w-96 text-sm text-gray-900 bg-white rounded-3xl border border-gray-300 dark:bg-card dark:bg-card dark:placeholder-gray-400 dark:text-white">
+          </div>
+          <div class="mr-12 p-5 flex justify-center">
+            <input type="file" #imageInput accept="image/*" class="hidden" id="imageInput">
+    
+              
+            
+          </div>
+        </form>
+      </div>
+      <!-- Add a label for the file input -->
+    <div class="ml-24 p-5 flex justify-center">
+      <!-- Bind the file input to the 'selectedImage' property -->
+      <input type="text" name="photo" [(ngModel)]="selectedRecipe.name" placeholder="Recipe Image" required
+              class="block mx-4 mr-2 p-2.5 w-96 text-sm text-gray-900 bg-white rounded-3xl border border-gray-300 dark:bg-card dark:bg-card dark:placeholder-gray-400 dark:text-white">
+    
+    </div>
+    <div class="flex justify-left">
+      <h1 class="text-center text-4xl font-body pl-11 mb-10 inline-block mr-3">Recipe <p class="inline text-main">type</p></h1>
+        <ul class="w-48 text-sm font-medium bg-white border border-gray-300 dark:bg-card dark:bg-card dark:placeholder-gray-400 text-white">
+            <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-400">
+                <div class="flex items-center pl-3">
+                    <input id="list-radio-license" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="list-radio-license" class="w-full py-3 ml-2 text-sm font-medium">Driver License </label>
+                </div>
+            </li>
+            <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-400">
+                <div class="flex items-center pl-3">
+                    <input id="list-radio-id" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="list-radio-id" class="w-full py-3 ml-2 text-sm font-medium">State ID</label>
+                </div>
+            </li>
+            <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-400">
+                <div class="flex items-center pl-3">
+                    <input id="list-radio-millitary" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="list-radio-millitary" class="w-full py-3 ml-2 text-sm font-medium">US Millitary</label>
+                </div>
+            </li>
+            <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-400">
+                <div class="flex items-center pl-3">
+                    <input id="list-radio-passport" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                    <label for="list-radio-passport" class="w-full py-3 ml-2 text-sm font-medium">US Passport</label>
+                </div>
+            </li>
+        </ul>
+    </div>
+      
+      <h1 class="p-5 text-left text-4xl font-body pl-11">Recipe <p class="inline text-main">description</p></h1>
+      
+      <div class="grid grid-cols-12 gap-5">
+        <div class="p-5 flex justify-left col-span-5 ml-6">
+          <textarea id="message" rows="7" name="description" [(ngModel)]="selectedRecipe.description"
+            placeholder="Recipe Description" required
+            class="block p-2.5 w-96 text-sm bg-card rounded-3xl border border-gray-300 dark:bg-card dark:text-black"></textarea>
+        </div>
+      </div>
+      <div class="ml-7 p-5">
+        <button type="button" (click)="addRecipe()"
+          class="bg-button hover:bg-hover dark:bg-button text-black text-sm py-2 px-4 rounded-full">
+          Submit
         </button>
+      </div>
     </div>
-</div>
-<h1 class="p-5 text-left text-4xl font-body pl-11">Recipe <p class="inline text-main">info</p>
-</h1>
-
-<div class=" grid grid-cols-12 gap-5">
-
-    <div class="p-5 flex justify-left col-span-5 ml-6 ">
-        <textarea id="message" rows="7"
-            class="block p-2.5 w-96 text-sm bg-card rounded-3xl border border-gray-300  dark:bg-card   dark:text-black"
-            placeholder="Enter here..."></textarea>
-    </div>
-    <div
-        class="p-5 flex justify-left col-span-6 ml-10 block p-2.5 w-96 text-sm bg-card rounded-3xl border border-gray-300  dark:bg-card   dark:text-black ml-10">
-        <img class="rounded-3xl w-full h-full opacity-20" src="../../assets/image-icon.png" alt="image" />
-
-    </div>
-
-
-</div>
-<div class="ml-5 grid grid-cols-2 gap-5">
-    <div class="col-span-12"></div>
-    <div class="flex justify-left">
-        <h1 class="text-center text-4xl font-body pl-6">Recipe <p class="inline text-main">steps</p>
-        </h1>
-    </div>
-    <div class="flex justify-left">
-        <h1 class="text-center text-4xl font-body">Nutrition <p class="inline text-main">info</p>
-        </h1>
-
-    </div>
-
-
-</div>
-
-
-<div class="grid grid-cols-12 gap-5">
-    <div class="p-5 flex justify-left col-span-5 ml-6 ">
-        <textarea id="message" rows="8"
-            class="block p-2.5 w-96 text-sm bg-card rounded-3xl border border-gray-300  dark:bg-card   dark:text-black"
-            placeholder="Enter here..."></textarea>
-    </div>
-
-    <div class="p-5 flex justify-left col-span-6 ml-7 ">
-        <textarea id="message" rows="8"
-            class="block p-2.5 w-96 text-sm bg-card rounded-3xl border border-gray-300  dark:bg-card   dark:text-black"
-            placeholder="Enter here..."></textarea>
-    </div>
-
-
-</div>
-<div class="ml-10 p-5 ">
-    <button class="bg-button hover:bg-hover dark:bg-button text-black text-sm py-2 px-4 rounded-full align-right">
-        Submit
-    </button>
-</div>
+    
