@@ -26,8 +26,10 @@
       <!-- Add a label for the file input -->
     <div class="ml-24 p-5 flex justify-center">
       <!-- Bind the file input to the 'selectedImage' property -->
-      <input type="text" name="photo" [(ngModel)]="selectedRecipe.name" placeholder="Recipe Image" required
-              class="block mx-4 mr-2 p-2.5 w-96 text-sm text-gray-900 bg-white rounded-3xl border border-gray-300 dark:bg-card dark:bg-card dark:placeholder-gray-400 dark:text-white">
+      <button type="button" (click)="addRecipe()"
+          class="bg-button hover:bg-hover dark:bg-button text-black text-sm py-2 px-4 rounded-full">
+          Add image
+        </button>
     
     </div>
     <div class="flex justify-left">
@@ -36,25 +38,25 @@
             <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-400">
                 <div class="flex items-center pl-3">
                     <input id="list-radio-license" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="list-radio-license" class="w-full py-3 ml-2 text-sm font-medium">Driver License </label>
+                    <label for="list-radio-license" class="w-full py-3 ml-2 text-sm font-medium">Halal </label>
                 </div>
             </li>
             <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-400">
                 <div class="flex items-center pl-3">
                     <input id="list-radio-id" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="list-radio-id" class="w-full py-3 ml-2 text-sm font-medium">State ID</label>
+                    <label for="list-radio-id" class="w-full py-3 ml-2 text-sm font-medium">Vegan</label>
                 </div>
             </li>
             <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-400">
                 <div class="flex items-center pl-3">
                     <input id="list-radio-millitary" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="list-radio-millitary" class="w-full py-3 ml-2 text-sm font-medium">US Millitary</label>
+                    <label for="list-radio-millitary" class="w-full py-3 ml-2 text-sm font-medium">Fast Food</label>
                 </div>
             </li>
             <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-400">
                 <div class="flex items-center pl-3">
                     <input id="list-radio-passport" type="radio" value="" name="list-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
-                    <label for="list-radio-passport" class="w-full py-3 ml-2 text-sm font-medium">US Passport</label>
+                    <label for="list-radio-passport" class="w-full py-3 ml-2 text-sm font-medium">Spicy</label>
                 </div>
             </li>
         </ul>

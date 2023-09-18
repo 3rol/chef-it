@@ -6,6 +6,7 @@ import { RecipeType } from 'src/models/recipetype.model';
 import { UserData } from 'src/models/user.model';
 import { AuthenticationService } from './authentication.service';
 import { Comment } from 'src/models/comment.model';
+import { tap, map } from 'rxjs';
 export interface RecipeData {
   id?: number; // Include optional properties that the server may generate
   name: string;
@@ -22,6 +23,7 @@ export interface RecipeData {
   providedIn: 'root'
 })
 export class RecipeService {
+  public searchResults = new BehaviorSubject<Recipe[]>([]);
   public allRecipes = new BehaviorSubject<Recipe[]>([]);
   public recipeById = new BehaviorSubject<Recipe>(new Recipe(0,"","","","",new UserData(0, "", "") ,new RecipeType(0, ""),""));
   public recipeComments = new BehaviorSubject<Comment[]>([]);
@@ -72,20 +74,64 @@ export class RecipeService {
     this.recipeComments.next(result);
   });
   }
-  getCommentsForRecipe(recipeId: number,): Observable<Comment[]> {
-    const userId = this.authService.getCurrentUser()?.id; // Get the current user's ID from the authentication service
+  getCommentsForRecipe(recipeId: number): Observable<Comment[]> {
+    const userId = this.authService.currentUser?.id; // Use optional chaining here
     const commentData = {
       user: userId,
       recipe: recipeId,
     };
     return this.http.get<Comment[]>(`http://127.0.0.1:8000/api/recipes/getcomments/${recipeId}`);
   }
+  
 
   postComment(recipeId: number, commentData: Comment): Observable<Comment> {
-    return this.http.post<Comment>('http://127.0.0.1:8000/api/recipes/postcomment', commentData);
+    // Add an authorization header with the token
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${this.authService.getToken()}`
+      })
+    };
+    
+    console.log(httpOptions)
+    return this.http.post<Comment>(
+      `http://127.0.0.1:8000/api/recipes/postcomment/${recipeId}/`,
+      commentData,
+      httpOptions // Include the headers in the request
+    );
   }
+  deleteRecipe(recipeId: number): Observable<void> {
+    // Add an authorization header with the token
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${this.authService.getToken()}`
+      })
+    };
+  
+    return this.http.delete<void>(`http://127.0.0.1:8000/api/recipes/delete-recipe/${recipeId}/`, httpOptions);
+  }
+  
+  searchRecipes(searchTerm: string): Observable<Recipe[]> {
+    const params = { name: searchTerm };
 
+    return this.http.get<Recipe[]>('http://127.0.0.1:8000/api/recipes/getrecipe/', { params })
+      .pipe(
+        map((recipes: Recipe[]) => {
+          // Update the image URLs for search results
+          return recipes.map((recipe) => ({
+            ...recipe,
+            recipe_image: `http://127.0.0.1:8000${recipe.recipe_image}`
+          }));
+        }),
+        tap((updatedRecipes: Recipe[]) => {
+          this.searchResults.next(updatedRecipes);
+        })
+      );
+  }
+  
 
+  updateSearchResults(results: Recipe[]) {
+    this.allRecipes.next(results);
+  }
   
 }
   

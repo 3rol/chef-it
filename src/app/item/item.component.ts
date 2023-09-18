@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { Recipe } from 'src/models/recipe.model';
 import { RecipeService } from 'src/services/recipe.service';
 import { Comment } from 'src/models/comment.model';
+import { Router } from '@angular/router';
  
 
 @Component({
@@ -19,7 +20,8 @@ export class ItemComponent implements OnInit {
 
   constructor(
     private recipeService: RecipeService,
-    public authService: AuthenticationService
+    public authService: AuthenticationService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +34,7 @@ export class ItemComponent implements OnInit {
   loadCommentsForRecipe() {
     this.recipeService.getCommentsForRecipe(this.recipeData.id).subscribe(
       (comments) => {
+        // Assuming the comments from the API response include the 'user' property
         this.comments = comments;
       },
       (error) => {
@@ -39,6 +42,7 @@ export class ItemComponent implements OnInit {
       }
     );
   }
+  
 
   postComment(commentText: string) {
     const recipeId = this.recipeData.id;
@@ -55,4 +59,14 @@ export class ItemComponent implements OnInit {
       this.recipeService.getCommentsForRecipe(recipeId);
     });
   }
+  deleteRecipe(recipeId: number) {
+    if (confirm('Are you sure you want to delete this recipe?')) {
+      this.recipeService.deleteRecipe(recipeId).subscribe(() => {
+        // Redirect to the homepage upon successful deletion
+        this.router.navigate(['/homepage']); // You may need to import Router from '@angular/router'
+      });
+    }
+  }
+  
+  
 }

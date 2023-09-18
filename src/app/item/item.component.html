@@ -1,122 +1,51 @@
-<h1 class="text-center text-4xl p-5 font-bold text-main">Curry Chicken</h1>
+<h1 class="text-center text-4xl p-5 font-bold text-main">{{ recipeData.name }}</h1>
+<div class="text-center">
+  <h1 class="text-2xl p-5  text-main">Made by {{ recipeData.user.username }}</h1>
+  <h1 class="text-2xl p-5  text-main">Recipe Type: {{ recipeData.recipe_type.name }}</h1>
+</div>
 <div class="p-5 flex justify-center">
-    <figure class="max-w-lg">
-        <img class="h-auto max-w-full rounded-lg" src="../../assets/curry-chicken.jpg" alt="curry-chicken">
-        <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Yield: 9 Servings: 3 Prep time:
-            20min
-            Cook time: 30min</figcaption>
-    </figure>
+  <figure class="max-w-lg">
+    <img class="h-auto max-w-full rounded-lg" src="../../assets/Beef-Tacos-768x575.jpg" alt="curry-chicken">
+    <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+  </figure>
 </div>
-<div class="flex justify-center grid grid-cols-12 gap-5">
-    <div class="col-span-3">
-        <h1 class="text-2xl p-5  text-main">Ingredients</h1>
-        <p class="ml-5 font-body">16 Mozzarella string cheese sticks must be string cheese<br>
-            ½ cup flour<br>
-            ¼ cup corn starch<br>
-            2 eggs<br>
-            2 tablespoons olive oil or vegetable oil <br>
-            ¾ cup Italian bread crumbs <br>
-            ½ cup Panko bread crumbs <br>
-            oil for frying</p>
+<div class="text-center">
+  <h1 class="text-2xl p-5 text-main">Description:</h1>
+  <p class="ml-5 font-body">{{ recipeData.description }}</p>
+  <h1 class="text-2xl p-5  text-center text-main">Comments: </h1>
+  <div *ngFor="let comment of comments" class="p-3 border rounded-lg mb-3">
+    <h2 class="text-lg font-semibold">{{ comment.user.username }}</h2>
+    <p>Posted by: {{ comment.user.username }}</p>
+    <p>{{ comment.body }}</p>
+    
+  </div>
+  <button
+  class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline rounded-full"
+  (click)="deleteRecipe(recipeData.id)"
+>
+  Delete Recipe
+</button>
+  <!-- Add a form to post comments -->
+  <form (ngSubmit)="postComment(newCommentText)">
+    <div class="mb-4">
+      <label for="newCommentText" class="block text-gray-700 text-sm font-bold mb-2">Add a Comment:</label>
+      <textarea
+        id="newCommentText"
+        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        [(ngModel)]="newCommentText"
+        name="newCommentText"
+        rows="4"
+        placeholder="Write your comment here..."
+        required
+      ></textarea>
     </div>
-    <div class="col-span-9">
-        <h1 class="text-2xl p-5  text-main">Steps</h1>
-        <p class="ml-5 font-body">Open the cheese strings and cut each in half. Cover and place in the freezer for at
-            least 2 hours or until completely frozen.<br>
-            Combine flour and cornstarch in a small bowl. Combine the Italian and Panko bread crumbs in a separate
-            shallow dish. In third small bowl, whisk eggs and olive oil until well combined.<br>
-            Dip each cheese stick half into the egg mixture and then gently roll into the flour mixture.<br>
-            Put back into the egg mixture and roll until coated. Finally, place into the bread crumbs pressing the
-            crumbs on each piece of cheese to make sure it's coated all around so the cheese doesn't leak out.<br>
-            Place in the freezer while the oil preheats. Preheat oil to 350°F. It should be hot enough that a few crumbs
-            dropped into the oil will bubble.<br>
-            In small batches, place breaded cheese sticks into the hot oil for about 2 minutes or just until browned. Do
-            not overcook or the cheese will leak out.<br>
-            Serve hot with warm pasta sauce.</p>
+    <div class="mb-4">
+      <button
+        type="submit"
+        class="bg-button hover:bg-hover dark:bg-button text-black text-sm py-2 px-4 rounded-full"
+      >
+        Post Comment
+      </button>
     </div>
-
-</div>
-
-<div class="flex justify-center grid grid-cols-12 gap-5">
-    <div class="col-span-4">
-        <h1 class="text-2xl p-5  text-main">Comments</h1>
-        <div class="grid grid-rows-2 grid-flow-col " style="max-height: 55px;">
-            <div class="row-span-3 bg-main w-1" style="margin-left: 20px;"> </div>
-            <div style="margin-right: 80px;">
-                <h1 class="font-body font-bold">Cooklover32</h1>
-                <p class="font-body">
-                    nice recipe Paige! looking forward to trying to make it myself!</p>
-            </div>
-        </div>
-        <div class="grid grid-rows-2 grid-flow-col " style="max-height: 55px;">
-            <div class="row-span-3 bg-secondary w-1" style="margin-left: 20px;"> </div>
-            <div style="margin-right: 80px;">
-                <h1 class="font-body font-bold">Cooklover32</h1>
-                <p class="font-body">
-                    nice recipe Paige! looking forward to trying to make it myself!</p>
-            </div>
-        </div>
-        <div class="grid grid-rows-2 grid-flow-col " style="max-height: 55px;">
-            <div class="row-span-3 bg-main w-1" style="margin-left: 20px;"> </div>
-            <div style="margin-right: 80px;">
-                <h1 class="font-body font-bold">Cooklover32</h1>
-                <p class="font-body">
-                    nice recipe Paige! looking forward to trying to make it myself!</p>
-            </div>
-        </div>
-        <div class="grid grid-rows-2 grid-flow-col " style="max-height: 55px;">
-            <div class="row-span-3 bg-secondary w-1" style="margin-left: 20px;"> </div>
-            <div style="margin-right: 80px;">
-                <h1 class="font-body font-bold">Cooklover32</h1>
-                <p class="font-body">
-                    nice recipe Paige! looking forward to trying to make it myself!</p>
-            </div>
-        </div>
-        <div class="grid grid-rows-2 grid-flow-col " style="max-height: 55px;">
-            <div class="row-span-3 bg-main w-1" style="margin-left: 20px;"> </div>
-            <div style="margin-right: 80px;">
-                <h1 class="font-body font-bold">Cooklover32</h1>
-                <p class="font-body">
-                    nice recipe Paige! looking forward to trying to make it myself!</p>
-            </div>
-        </div>
-        <div class="grid grid-rows-2 grid-flow-col " style="max-height: 55px;">
-            <div class="row-span-3 bg-secondary w-1" style="margin-left: 20px;"> </div>
-            <div style="margin-right: 80px;">
-                <h1 class="font-body font-bold">Cooklover32</h1>
-                <p class="font-body">
-                    nice recipe Paige! looking forward to trying to make it myself!</p>
-            </div>
-        </div>
-
-
-    </div>
-
-    <div class="col-span-4">
-        <h1 class="text-2xl p-5  text-main">Nutrition Info<br>
-            <p class="text-black text-sm">This info is per serving</p>
-        </h1>
-
-        <p class="font-body text-sm">Protein<br>
-            6.60g<br>
-            Dietary Fibre<br>
-            2.00g<br>
-            Fat Total<br>
-            500g<br>
-            Energy<br>
-            20.50g<br>
-            Fat Saturated<br>
-            90g<br>
-            Sodium<br>
-            100g<br>
-            Carbohydrate<br>
-            150g<br>
-            Cholesterol<br>
-            60g</p>
-
-    </div>
-    <div class="col-span-4">
-        <h1 class="text-2xl p-5  text-main">Made by</h1>
-
-    </div>
+  </form>
 </div>

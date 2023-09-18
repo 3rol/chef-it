@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="col-span-1 my-auto text-2xl flex md:justify-center sm:justify-center">
-        <div routerLink="/about-us">
+        <div routerLink="/faq">
             FAQ
         </div>
     </div>
@@ -29,13 +29,14 @@
                 <div
                     class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none md:justify-center sm:justify-center">
                 </div>
-                <input type="text" id="simple-search"
+                <input type="text" id="simple-search"  [(ngModel)]="searchValue" name="sear"
                     class="border rounded-full border-gray-300 text-gray-900 bg-gray-300 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-5 p-2.5"
-                    placeholder="Search" required>
+                    placeholder="Search" required
+                    (keyup.enter)="searchRecipes()">
                 <div
                     class="absolute inset-y-0 right-0 flex items-center pl-3 pr-3 pointer-events-none bg-green-500 rounded-full border border-green-500">
                     <svg aria-hidden=" true" class="w-6 h-6 text-black md:justify-center sm:justify-center"
-                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" routerLink="/search">
+                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" (click)="searchRecipes()">
                         <path fill-rule="evenodd"
                             d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
                             clip-rule="evenodd"></path>
@@ -53,8 +54,8 @@
         <div class="md:text-md" routerLink="/login">
             Login
         </div>
-        <div class="md:text-md" routerLink="/logout">
+        <!-- <div class="md:text-md" routerLink="/logout">
             Logout
-        </div>
+        </div> -->
     </div>
 </div>

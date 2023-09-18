@@ -21,6 +21,7 @@ import { RegisterComponent } from './register/register.component';
 import { HTTP_INTERCEPTORS, HttpClientModule} from  '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth.interceptor';
+import { FaqComponent } from './faq/faq.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AuthInterceptor } from './auth.interceptor';
     AddRecipeComponent,
     LoginComponent,
     RegisterComponent,
+    FaqComponent,
 
   ],
   imports: [

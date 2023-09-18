@@ -30,16 +30,23 @@ export class LoginComponent implements OnInit {
     };
     
   }
-  onLogin(){
-    this.userService.loginUser(this.login).subscribe(result =>{
-      this.userService.loginUser = result;
-      const userData = result;
-
-      this.authService.setUser(userData);
-
-    })
+  onLogin() {
+    this.userService.loginUser(this.login).subscribe(
+      (result) => {
+        const userData = result;
+        if (userData.token) {
+          const authToken = userData.token;
+          this.authService.setToken(authToken);
+        }
+      },
+      (error) => {
+        console.error('Login error:', error);
+      }
+    );
+  }
+  
       
   }
   
   
-}
+

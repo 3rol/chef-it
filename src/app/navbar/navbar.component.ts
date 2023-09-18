@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { RecipeService } from 'src/services/recipe.service';
 
 @Component({
@@ -8,17 +7,23 @@ import { RecipeService } from 'src/services/recipe.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  searchValue= '';
-  
+  searchValue = '';
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private recipeService: RecipeService) {}
 
+  ngOnInit(): void {
+    // ...
   }
-  obj:any;
-  ngOnInit(): void{
-    
-    
+
+  searchRecipes() {
+    this.recipeService.searchRecipes(this.searchValue).subscribe(
+      (recipes) => {
+        // Update the search results in the HomepageComponent
+        this.recipeService.updateSearchResults(recipes);
+      },
+      (error) => {
+        console.error('Error searching recipes:', error);
+      }
+    );
   }
-  
-  
 }
