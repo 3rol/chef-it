@@ -7,16 +7,9 @@ import { UserData } from 'src/models/user.model';
 import { AuthenticationService } from './authentication.service';
 import { Comment } from 'src/models/comment.model';
 import { tap, map } from 'rxjs';
-export interface RecipeData {
-  id?: number; // Include optional properties that the server may generate
-  name: string;
-  description: string;
-  updated?: string; // Include optional properties that the server may generate
-  created?: string; // Include optional properties that the server may generate
-  user?: number;   // Include optional properties that the server may generate
-  recipe_type?: number; // Include optional properties that the server may generate
-  recipe_image: string;
-}
+import { RecipeData } from 'src/models/recipe.model';
+import { Router } from '@angular/router';
+
 
 
 @Injectable({
@@ -25,55 +18,90 @@ export interface RecipeData {
 export class RecipeService {
   public searchResults = new BehaviorSubject<Recipe[]>([]);
   public allRecipes = new BehaviorSubject<Recipe[]>([]);
-  public recipeById = new BehaviorSubject<Recipe>(new Recipe(0,"","","","",new UserData(0, "", "") ,new RecipeType(0, ""),""));
+  public recipeById = new BehaviorSubject<Recipe>(new Recipe(0,"","","","",new UserData(0, "", "", "") ,new RecipeType(0, ""),"", "", false));
   public recipeComments = new BehaviorSubject<Comment[]>([]);
-  constructor(private http: HttpClient, private authService: AuthenticationService) {}
+  constructor(private http: HttpClient, private authService: AuthenticationService, private router: Router) {}
 
   getRecipes() {
     this.http.get<Recipe[]>('http://127.0.0.1:8000/api/recipes/getrecipe/').subscribe(
       (result) => {
-       
-        const recipesWithImageUrls = result.map((recipe) => ({
-          ...recipe,
-          recipe_image: `http://127.0.0.1:8000${recipe.recipe_image}`,
-          user:{
-            id: recipe.user.id,
-            username: recipe.user.username,
+        const recipesWithImageUrls = result.map((recipe) => {
+          let recipe_image;
+          if (recipe.id === 999) {
+            recipe_image = '../../assets/Beef-Tacos-768x575.jpg';  // Hardcoded image path
+          } else {
+            recipe_image = `http://127.0.0.1:8000${recipe.recipe_image}`;
           }
-        }));
+          return {
+            ...recipe,
+            recipe_image,
+            user: {
+              id: recipe.user.id,
+              username: recipe.user.username,
+              email: recipe.user.email,
+            }
+          };
+        });
         this.allRecipes.next(recipesWithImageUrls);
+        
       },
       (error) => {
         console.error('Error fetching recipes:', error);
       }
     );
   }
+  
+  
 
   CreateRecipe(recipeData: RecipeData | FormData): Observable<Recipe> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${this.authService.getToken()}`
+      })
+    };
     if (recipeData instanceof FormData) {
       // If it's FormData (image selected), send it directly
-      return this.http.post<Recipe>('http://127.0.0.1:8000/api/recipes/addrecipe', recipeData);
+      return this.http.post<Recipe>('http://127.0.0.1:8000/api/recipes/addrecipe/', recipeData, httpOptions);
     } else {
       // If it's RecipeData (no image selected), create FormData and send it
       const formData = {
         name: recipeData.name,
         description: recipeData.description
       }
-      
+      this.router.navigate(['/homepage']);
   
-      return this.http.post<Recipe>('http://127.0.0.1:8000/api/recipes/addrecipe', formData);
+      return this.http.post<Recipe>('http://127.0.0.1:8000/api/recipes/addrecipe/', formData, httpOptions);
     }
+    
   }
 
-  getRecipeById(recipeId : number){
+  getRecipeById(recipeId: number) {
     this.http.get<Recipe>("http://127.0.0.1:8000/api/recipes/getrecipe/" + recipeId).subscribe(result => {
-    this.recipeById.next(result);
+        let updatedResult;
+
+        // Check if the recipe is hardcoded. Adjust the number accordingly.
+        if (result.id === 42) {
+            updatedResult = {
+                ...result,
+                // Replace with the hardcoded image URL
+                recipe_image: '../../assets/Beef-Tacos-768x575.jpg'
+            };
+        } else {
+            updatedResult = {
+                ...result,
+                recipe_image: `http://127.0.0.1:8000${result.recipe_image}`
+            };
+        }
+        
+        this.recipeById.next(updatedResult);
     });
 
     this.http.get<Comment[]>(`http://127.0.0.1:8000/api/recipes/getcomments/${recipeId}`).subscribe(result => {
-    this.recipeComments.next(result);
-  });
-  }
+        this.recipeComments.next(result);
+    });
+}
+
+
   getCommentsForRecipe(recipeId: number): Observable<Comment[]> {
     const userId = this.authService.currentUser?.id; // Use optional chaining here
     const commentData = {
@@ -94,7 +122,7 @@ export class RecipeService {
     
     console.log(httpOptions)
     return this.http.post<Comment>(
-      `http://127.0.0.1:8000/api/recipes/postcomment/${recipeId}/`,
+      `http://127.0.0.1:8000/recipes/postcomment/${recipeId}/`,
       commentData,
       httpOptions // Include the headers in the request
     );
@@ -107,7 +135,7 @@ export class RecipeService {
       })
     };
   
-    return this.http.delete<void>(`http://127.0.0.1:8000/api/recipes/delete-recipe/${recipeId}/`, httpOptions);
+    return this.http.delete<void>(`http://127.0.0.1:8000/recipes/delete-recipe/${recipeId}/`, httpOptions);
   }
   
   searchRecipes(searchTerm: string): Observable<Recipe[]> {
@@ -126,6 +154,17 @@ export class RecipeService {
           this.searchResults.next(updatedRecipes);
         })
       );
+  }
+  deleteComment(commentId: number): Observable<void> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': `Token ${this.authService.getToken()}`
+      })
+    };
+    return this.http.delete<void>(
+      `http://127.0.0.1:8000/recipes/delete-comment/${commentId}/`,
+      httpOptions
+    );
   }
   
 

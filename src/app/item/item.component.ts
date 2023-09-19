@@ -1,7 +1,7 @@
 import { AuthenticationService } from './../../services/authentication.service';
 import { UserService } from './../../services/user.service';
 import { UserData } from './../../models/user.model';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from 'src/models/recipe.model';
 import { RecipeService } from 'src/services/recipe.service';
 import { Comment } from 'src/models/comment.model';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./item.component.css']
 })
 export class ItemComponent implements OnInit {
-  recipeData!: Recipe;
+  @Input() recipes!:Recipe
   comments: Comment[] = [];
   newCommentText: string = '';
 
@@ -26,13 +26,13 @@ export class ItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.recipeService.recipeById.subscribe((result) => {
-      this.recipeData = result;
+      this.recipes = result;
       this.loadCommentsForRecipe();
     });
   }
 
   loadCommentsForRecipe() {
-    this.recipeService.getCommentsForRecipe(this.recipeData.id).subscribe(
+    this.recipeService.getCommentsForRecipe(this.recipes.id).subscribe(
       (comments) => {
         // Assuming the comments from the API response include the 'user' property
         this.comments = comments;
@@ -45,18 +45,19 @@ export class ItemComponent implements OnInit {
   
 
   postComment(commentText: string) {
-    const recipeId = this.recipeData.id;
-    const currentUser = this.authService.currentUser || new UserData(0, '', ''); // Provide a default UserData object if currentUser is null
+    const recipeId = this.recipes.id;
+    const currentUser = this.authService.currentUser || new UserData(0, '', '', ""); // Provide a default UserData object if currentUser is null
     const newComment: Comment = {
       id: 0, // You can set an initial ID here or leave it as 0
       user: currentUser, // Use currentUser or the default UserData
       body: commentText,
-      recipe: this.recipeData,
+      recipe: this.recipes,
     };
   
     this.recipeService.postComment(recipeId, newComment).subscribe((createdComment) => {
       // After posting the comment, refresh the comments list
       this.recipeService.getCommentsForRecipe(recipeId);
+      this.router.navigate(['/homepage']); 
     });
   }
   deleteRecipe(recipeId: number) {
@@ -66,6 +67,20 @@ export class ItemComponent implements OnInit {
         this.router.navigate(['/homepage']); // You may need to import Router from '@angular/router'
       });
     }
+  }
+
+  deleteComment(commentId: number) {
+    this.recipeService.deleteComment(commentId).subscribe(
+      () => {
+        // Comment deleted successfully, now update your local comments list
+        this.comments = this.comments.filter(comment => comment.id !== commentId);
+        this.router.navigate(['/homepage'])
+      },
+      error => {
+        // Handle the error here
+        console.error('Could not delete comment:', error);
+      }
+    );
   }
   
   

@@ -1,27 +1,32 @@
-<h1 class="text-center text-4xl p-5 font-bold text-main">{{ recipeData.name }}</h1>
+<h1 class="text-center text-4xl p-5 font-bold text-main">{{ recipes.name }}</h1>
 <div class="text-center">
-  <h1 class="text-2xl p-5  text-main">Made by {{ recipeData.user.username }}</h1>
-  <h1 class="text-2xl p-5  text-main">Recipe Type: {{ recipeData.recipe_type.name }}</h1>
+  <h1 class="text-2xl p-5  text-main">Made by {{ recipes.user.username }}</h1>
+  <h1 class="text-2xl p-5  text-main">Recipe Type: {{ recipes.recipe_type.name }}</h1>
 </div>
 <div class="p-5 flex justify-center">
   <figure class="max-w-lg">
-    <img class="h-auto max-w-full rounded-lg" src="../../assets/Beef-Tacos-768x575.jpg" alt="curry-chicken">
+    <img class="h-auto max-w-full rounded-lg" [src]="recipes.recipe_image" alt="Recipe Image">
     <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
   </figure>
 </div>
 <div class="text-center">
   <h1 class="text-2xl p-5 text-main">Description:</h1>
-  <p class="ml-5 font-body">{{ recipeData.description }}</p>
+  <p class="ml-5 font-body">{{ recipes.description }}</p>
   <h1 class="text-2xl p-5  text-center text-main">Comments: </h1>
   <div *ngFor="let comment of comments" class="p-3 border rounded-lg mb-3">
     <h2 class="text-lg font-semibold">{{ comment.user.username }}</h2>
     <p>Posted by: {{ comment.user.username }}</p>
     <p>{{ comment.body }}</p>
-    
+    <button
+    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline rounded-full"
+    (click)="deleteComment(comment.id)"
+  >
+    Delete Comment
+  </button>
   </div>
   <button
   class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline rounded-full"
-  (click)="deleteRecipe(recipeData.id)"
+  (click)="deleteRecipe(recipes.id)"
 >
   Delete Recipe
 </button>
