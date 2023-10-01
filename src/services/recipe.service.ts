@@ -27,11 +27,9 @@ export class RecipeService {
       (result) => {
         const recipesWithImageUrls = result.map((recipe) => {
           let recipe_image;
-          if (recipe.id === 999) {
-            recipe_image = '../../assets/Beef-Tacos-768x575.jpg';  // Hardcoded image path
-          } else {
-            recipe_image = `http://127.0.0.1:8000${recipe.recipe_image}`;
-          }
+           
+          recipe_image = `http://127.0.0.1:8000${recipe.recipe_image}`;
+          
           return {
             ...recipe,
             recipe_image,
@@ -60,10 +58,10 @@ export class RecipeService {
       })
     };
     if (recipeData instanceof FormData) {
-      // If it's FormData (image selected), send it directly
+      
       return this.http.post<Recipe>('http://127.0.0.1:8000/api/recipes/addrecipe/', recipeData, httpOptions);
     } else {
-      // If it's RecipeData (no image selected), create FormData and send it
+  
       const formData = {
         name: recipeData.name,
         description: recipeData.description
@@ -78,20 +76,10 @@ export class RecipeService {
   getRecipeById(recipeId: number) {
     this.http.get<Recipe>("http://127.0.0.1:8000/api/recipes/getrecipe/" + recipeId).subscribe(result => {
         let updatedResult;
-
-        // Check if the recipe is hardcoded. Adjust the number accordingly.
-        if (result.id === 42) {
-            updatedResult = {
-                ...result,
-                // Replace with the hardcoded image URL
-                recipe_image: '../../assets/Beef-Tacos-768x575.jpg'
-            };
-        } else {
-            updatedResult = {
-                ...result,
-                recipe_image: `http://127.0.0.1:8000${result.recipe_image}`
-            };
-        }
+        updatedResult = {
+          ...result,
+          recipe_image: `http://127.0.0.1:8000${result.recipe_image}`
+      };
         
         this.recipeById.next(updatedResult);
     });
@@ -103,7 +91,7 @@ export class RecipeService {
 
 
   getCommentsForRecipe(recipeId: number): Observable<Comment[]> {
-    const userId = this.authService.currentUser?.id; // Use optional chaining here
+    const userId = this.authService.currentUser?.id;
     const commentData = {
       user: userId,
       recipe: recipeId,
@@ -113,7 +101,7 @@ export class RecipeService {
   
 
   postComment(recipeId: number, commentData: Comment): Observable<Comment> {
-    // Add an authorization header with the token
+    
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Token ${this.authService.getToken()}`
@@ -124,11 +112,11 @@ export class RecipeService {
     return this.http.post<Comment>(
       `http://127.0.0.1:8000/recipes/postcomment/${recipeId}/`,
       commentData,
-      httpOptions // Include the headers in the request
+      httpOptions 
     );
   }
   deleteRecipe(recipeId: number): Observable<void> {
-    // Add an authorization header with the token
+   
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': `Token ${this.authService.getToken()}`
@@ -144,7 +132,7 @@ export class RecipeService {
     return this.http.get<Recipe[]>('http://127.0.0.1:8000/api/recipes/getrecipe/', { params })
       .pipe(
         map((recipes: Recipe[]) => {
-          // Update the image URLs for search results
+          
           return recipes.map((recipe) => ({
             ...recipe,
             recipe_image: `http://127.0.0.1:8000${recipe.recipe_image}`

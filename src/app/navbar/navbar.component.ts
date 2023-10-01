@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit {
   searchRecipes() {
     this.recipeService.searchRecipes(this.searchValue).subscribe(
       (recipes) => {
-        // Update the search results in the HomepageComponent
+       
         this.recipeService.updateSearchResults(recipes);
       },
       (error) => {
